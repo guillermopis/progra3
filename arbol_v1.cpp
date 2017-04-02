@@ -71,7 +71,7 @@ void menu(){
 			switch(opcion){
 				case 1:
 						system("cls");
-						cout<<"--------INGESANDO UN NODO--------"<<endl;
+						cout<<"--------INGRESANDO UN NODO--------"<<endl;
 						cout<<"ingrese el valor del nodo: ";
 						cin>>val;
 						lista Lista;
@@ -111,14 +111,19 @@ void lista::insertarnodo(nodo *&arbol, int n, nodo *padre){
      }else //si el arbol tiene al menos un nodo
      {		//aca debemos preguntar a que lado del unico nodo que tiene va insertar, si a  la izq, o la derecha
   			cout<<"------------Seleccione una opcion: ---------"<<endl<<endl;
-  			cout<<"1. ingresar nodos a la izquiera "<<endl;
-  			cout<<"2. ingresar nodos a la derecha "<<endl;
+  			cout<<"1. Ingresar nodos a la izquiera "<<endl;
+  			cout<<"2. Ingresar nodos a la derecha "<<endl;
+  			cout<<"3. Ingresar nodos a la izquierda y derecha "<<endl;
   			int selec=0; cin>>selec;
   			switch(selec){
-  				case 1: 
+  				case 1: //ingresamos el valor al nodo izquierdo
   						insertarnodo(arbol->izquierda,n,arbol);
   						break;
-  				case 2:
+  				case 2://ingresamos el valor al nodo derecho
+  						insertarnodo(arbol->derecha,n,arbol);
+  						break;
+  				case 3://ingresamos el valor al nodo izquierdo y derecho
+  						insertarnodo(arbol->izquierda,n,arbol);
   						insertarnodo(arbol->derecha,n,arbol);
   						break;
 			  }
