@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <windows.h>
 using namespace std;
+cout<<"hola" <<endl;
 class nodo {
 	//dESDE OTRA CLASE SE PUEDEN acceder a estos atributos
    public:
