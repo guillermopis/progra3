@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <windows.h>
 using namespace std;
-cout<<"hola" <<endl;
 class nodo {
 	//dESDE OTRA CLASE SE PUEDEN acceder a estos atributos
    public:
@@ -33,6 +32,8 @@ nodo *crearnodo(int,nodo *,nodo *, nodo *);
 
 
 nodo *arbol = NULL; //incializa el arbol en NULL
+nodo *arbol2 = NULL; //incializa el arbol en NULL
+nodo *arbol3 = NULL;
 
 typedef nodo *pnodo;
 
@@ -152,13 +153,40 @@ void lista::mostrararbol2(nodo *arbol){
      }
      else
      {
-     	//contador difine cuantos espacios dejar del margen
-     	nodo *arbol2;
-     while(arbol!= NULL){
+ 			if(arbol->derecha != NULL){
+ 				arbol3=arbol->derecha;
+			 }
+ 			
+     	
+     do{ //imprime el subarbol izquierdo
      		cout<<"codigo_nodo: "<<arbol<<" , valor: "<<arbol->valor<<" , nodo izq: "<<arbol->izquierda<<" ,nodo der: "<<arbol->derecha<<endl;
+     		if(arbol3 != arbol->derecha){
+			 
+			 if(arbol->derecha != NULL){
+     			arbol2=arbol->derecha;
+     			cout<<"codigo_nodo: "<<arbol2<<" , valor: "<<arbol2->valor<<" , nodo izq: "<<arbol2->izquierda<<" ,nodo der: "<<arbol2->derecha<<endl;
+			}
+			 }
      		arbol=arbol->izquierda;
-     		//arbol=arbol->derecha;
+		 }while(arbol!= NULL);
+		 
+		//imprime el sub arbol derecho		 
+		//cout<<"puntero a iniciar en el segundo while: "<<arbol3<<endl;
+		//system("pause");
+		//	arbol3=arbol3->izquierda;
+			
+		 while(arbol3 != NULL){
+		 	
+			cout<<"codigo_nodo: "<<arbol3<<" , valor: "<<arbol3->valor<<" , nodo izq: "<<arbol3->izquierda<<" ,nodo der: "<<arbol3->derecha<<endl;     		
+     		if(arbol3->derecha != NULL){
+     			arbol2=arbol3->derecha;
+     			cout<<"codigo_nodo: "<<arbol2<<" , valor: "<<arbol2->valor<<" , nodo izq: "<<arbol2->izquierda<<" ,nodo der: "<<arbol2->derecha<<endl;
+			 }
+     		
+     		arbol3=arbol3->izquierda;
      		
 		 }
+		 cout<<"ya salio de todo"<<endl;
+		 system("pause");
      }
 }
