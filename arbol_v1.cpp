@@ -7,17 +7,19 @@ using namespace std;
 class nodo {
 	//dESDE OTRA CLASE SE PUEDEN acceder a estos atributos
    public:
-    nodo(int v, nodo *sig, nodo *ante)
+    nodo(int v, nodo *izq, nodo *der ,nodo *padre)
     {
        valor = v;
-       siguiente = sig;
-       anterior=ante;
+       izquierda = izq;
+       derecha = der;
+       padre=padre;
     }
     //Desde otra clase/funcion no de puede acceder a los atributos o metodos privados.
    private:
     int valor;
-    nodo *siguiente;
-    nodo *anterior;
+    nodo *izquierda;
+    nodo *derecha;
+    nodo *padre;
 
    //Una funcion externa puede acceder a los atributos privados.
    friend class lista;
@@ -26,7 +28,7 @@ class nodo {
 //PROTOTIPOS
 void menu();
 void mostrar();
-nodo *crearnodo(int,nodo *,nodo *);
+nodo *crearnodo(int,nodo *,nodo *, nodo *);
 
 
 nodo *arbol = NULL; //incializa el arbol en NULL
@@ -35,7 +37,7 @@ typedef nodo *pnodo;
 
 class lista {
    public:
-   	void insertarnodo(nodo *&,int,nodo *);
+   	void insertarnodo(nodo *&, int, nodo * );
    	void mostrararbol(nodo *); //funcion para mostrar el arbol con recursividad
    	void mostrararbol2(nodo *); //FUNCIOIN PARA RECCORER EL arbol con while
    private:
@@ -93,23 +95,38 @@ void menu(){
 }
 
 //funcion para crear nodos nuevos
-nodo *crearnodo(int n,nodo *anterior){
-     nodo *nuevo_nodo= new nodo(n,NULL,anterior);
+nodo *crearnodo(int n,nodo *padre){
+     nodo *nuevo_nodo= new nodo(n,NULL,NULL,padre);
      return nuevo_nodo;
 }
 
 //funcion para insertar nodos en el arbol
-void lista::insertarnodo(nodo *&arbol, int n, nodo *anterior){
+void lista::insertarnodo(nodo *&arbol, int n, nodo *padre){
      if(arbol==NULL)
-     {
-            nodo *nuevo_nodo=crearnodo(n,anterior);
+     {		//si el arbol esta vacio
+            nodo *nuevo_nodo=crearnodo(n,padre);
             arbol=nuevo_nodo;
-     }else //si el arbol tiene uno o mas nodos
-     {
-  			insertarnodo(arbol->siguiente,n,arbol);
-         	//arbol->anterior=arbol->siguiente;
+     }else //si el arbol tiene al menos un nodo
+     {		//aca debemos preguntar a que lado del unico nodo que tiene va insertar, si a  la izq, o la derecha
+  			cout<<"------------Seleccione una opcion: ---------"<<endl<<endl;
+  			cout<<"1. ingresar nodos a la izquiera "<<endl;
+  			cout<<"2. ingresar nodos a la derecha "<<endl;
+  			int selec=0; cin>>selec;
+  			switch(selec){
+  				case 1: 
+  						insertarnodo(arbol->izquierda,n,arbol);
+  						break;
+  				case 2:
+  						insertarnodo(arbol->derecha,n,arbol);
+  						break;
+			  }
+			 
+         	
      }
 }
+
+//funcion para buscar un nodo por su valor dentro del arbol
+
 
 //funcon para mostrar el arbol con recursividad
 void lista::mostrararbol(nodo *arbol){
@@ -118,10 +135,11 @@ void lista::mostrararbol(nodo *arbol){
                 return ;
      }
      else
-     {
-         cout<<"codigo de nodo: "<<arbol<<" , valor de nodo: "<<arbol->valor<<" , nodo siguiente: "<<arbol->siguiente<<endl;
-		 mostrararbol(arbol->siguiente);
-        
+     {	
+     	
+        cout<<"codigo_nodo: "<<arbol<<" , valor: "<<arbol->valor<<" ,nodo izq: "<<arbol->izquierda<<" ,nodo der"<<arbol->derecha<<endl;
+		mostrararbol(arbol->izquierda);
+		mostrararbol(arbol->derecha);
      }
 }
 
@@ -134,10 +152,12 @@ void lista::mostrararbol2(nodo *arbol){
      else
      {
      	//contador difine cuantos espacios dejar del margen
-     	//nodo *arbol2;
+     	nodo *arbol2;
      while(arbol!= NULL){
-     			cout<<"codigo de nodo: "<<arbol<<" , valor de nodo: "<<arbol->valor<<" , nodo siguiente: "<<arbol->siguiente<<endl;
-     			arbol=arbol->siguiente;
+     		cout<<"codigo_nodo: "<<arbol<<" , valor: "<<arbol->valor<<" , nodo izq: "<<arbol->izquierda<<" ,nodo der: "<<arbol->derecha<<endl;
+     		arbol=arbol->izquierda;
+     		//arbol=arbol->derecha;
+     		
 		 }
      }
 }
