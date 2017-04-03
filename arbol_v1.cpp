@@ -72,7 +72,7 @@ void menu(){
 				case 1:
 						system("cls");
 						cout<<"--------INGRESANDO UN NODO--------"<<endl;
-						cout<<"ingrese el valor del nodo: ";
+						cout<<"ingrese el valor del nodo Raiz: ";
 						cin>>val;
 						lista Lista;
 						Lista.insertarnodo(arbol,val,NULL);
@@ -109,7 +109,10 @@ void lista::insertarnodo(nodo *&arbol, int n, nodo *padre){
             nodo *nuevo_nodo=crearnodo(n,padre);
             arbol=nuevo_nodo;
      }else //si el arbol tiene al menos un nodo
-     {		//aca debemos preguntar a que lado del unico nodo que tiene va insertar, si a  la izq, o la derecha
+     {	
+	 	if(arbol->izquierda==NULL && arbol->derecha==NULL)
+		 {	
+	 		//aca preguntamos si quiere ingresar un valor en el nodo izquierdo, derecho o en los dos 
   			cout<<"------------Seleccione una opcion: ---------"<<endl<<endl;
   			cout<<"1. Ingresar nodos a la izquiera "<<endl;
   			cout<<"2. Ingresar nodos a la derecha "<<endl;
@@ -122,14 +125,40 @@ void lista::insertarnodo(nodo *&arbol, int n, nodo *padre){
   				case 2://ingresamos el valor al nodo derecho
   						insertarnodo(arbol->derecha,n,arbol);
   						break;
-  				case 3://ingresamos el valor al nodo izquierdo y derecho
-  						insertarnodo(arbol->izquierda,n,arbol);
+  				case 3://ingresamos el valor al nodo izquierdo y derecho  						
+				  		insertarnodo(arbol->izquierda,n,arbol);
   						insertarnodo(arbol->derecha,n,arbol);
   						break;
-			  }
-			 
-         	
-     }
+			  }//fin del switch			 
+     	}
+     		else if (arbol->izquierda!=NULL && arbol->derecha!=NULL)
+     		{//aca validamos si el nodo izquierdo y derecho tienen valores, entonces escogemos en cual de los dos nodos le vamos a ingresar valores de los subnodos
+	  			cout<<"------------Seleccione una opcion: ---------"<<endl<<endl;
+	  			cout<<"1. Ingresar nodos a la izquiera "<<endl;
+	  			cout<<"2. Ingresar nodos a la derecha "<<endl;	  			
+	  			int selec=0; cin>>selec;
+	  			switch(selec){
+	  				case 1: //ingresamos el valor al nodo izquierdo
+	  						insertarnodo(arbol->izquierda,n,arbol);
+	  						break;
+	  				case 2://ingresamos el valor al nodo derecho
+	  						insertarnodo(arbol->derecha,n,arbol);
+	  						break;
+				 }//fin del switch			 
+     			
+     		}
+		     	else if (arbol->izquierda!=NULL && arbol->derecha==NULL)
+		     	{//aca validamos si el nodo izquierdo tiene valor y el nodo derecho no tiene, entonces ingresamos el valor directo al nodo derecho	 		
+		  			cout<<"EL NODO IZQUIERDO YA TIENE VALOR"<<endl;
+		  			cout<<"Ingresar nodos a la derecha "<<endl;
+		  			insertarnodo(arbol->derecha,n,arbol);     		
+		     	}
+			     	else if(arbol->izquierda==NULL && arbol->derecha!=NULL)
+			     	{//aca validamos si el nodo izquiero no tiene valor y el nodo derecho si tiene, entonces ingresamos el valor directo al nodo izquierdo
+			  			cout<<"Ingresar nodos a la izquierda "<<endl;
+			  			insertarnodo(arbol->izquierda,n,arbol);     		
+			     	}     		
+    }
 }
 
 //funcion para buscar un nodo por su valor dentro del arbol
