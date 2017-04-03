@@ -42,6 +42,7 @@ class lista {
    	void insertarnodo(nodo *&, int, nodo * );
    	void mostrararbol(nodo *); //funcion para mostrar el arbol con recursividad
    	void mostrararbol2(nodo *); //FUNCIOIN PARA RECCORER EL arbol con while
+   	void buscar(int , nodo *);
    private:
     pnodo primero;
     pnodo actual;
@@ -65,7 +66,8 @@ void menu(){
 		cout<<"1. Insertar un nodo"<<endl;
 		cout<<"2. listar nodos usando while"<<endl;
 		cout<<"3. listar nodos usando recursividad"<<endl;
-		cout<<"4. salir"<<endl<<endl;
+		cout<<"4. buscar un nodo por su valor"<<endl;
+		cout<<"5. salir"<<endl<<endl;
 		cout<<"ingrese una opcion: ";
 		cin>>opcion;
 			switch(opcion){
@@ -92,8 +94,16 @@ void menu(){
 						Lista6.mostrararbol2(arbol);
 						system("pause");
 						break;
+				case 4:
+						system("cls");
+						cout<<"-------BUSAR UN NODO POR SU VALOR--------------------"<<endl<<endl;
+						int valor_buscado=0;
+						cout<<"ingrese el valor buscado: "; cin>>valor_buscado;
+						lista Lista3;
+						Lista6.buscar(valor_buscado,arbol);
+						break;
 			}	
-	}while(opcion != 4);
+	}while(opcion != 5);
 }
 
 //funcion para crear nodos nuevos
@@ -122,12 +132,104 @@ void lista::insertarnodo(nodo *&arbol, int n, nodo *padre){
   						insertarnodo(arbol->derecha,n,arbol);
   						break;
 			  }
-			 
-         	
      }
 }
 
 //funcion para buscar un nodo por su valor dentro del arbol
+void lista::buscar(int v, nodo *arbol){
+	//verificamos qu el arbol no este vacio
+	if(arbol == NULL){
+			return ;
+	}else{ //si no esta vacio
+				if(arbol->derecha != NULL){
+ 				arbol3=arbol->derecha;
+			 	}
+			 	
+			do{ //imprime el subarbol izquierdo
+				if(arbol->valor == v){
+	     		cout<<"codigo_nodo: "<<arbol<<" , valor: "<<arbol->valor<<" , Codigo_izq: "<<arbol->izquierda; //imprime una parte del contenido
+				 if(arbol->izquierda == NULL){ //verificamos si los nodos hijos estan vacios
+				 	cout<<" , valor_izq: nodo vacio"<<endl;
+				 }else{
+				 	cout<<" , valor_izq: "<<arbol->izquierda->valor<<endl;
+				}
+				//ahora el hijo derecho
+				if(arbol->derecha == NULL){
+					cout<<"Codigo_der: "<<arbol->derecha<<" , valor_der: El nodo derecho esta vacio"<<endl;
+				}else{
+					cout<<"Codigo_der: "<<arbol->derecha<<" , valor_der: "<<arbol->derecha->valor<<endl;
+				}
+	     		system("pause");
+	     		}
+	     		
+	     		if(arbol3 != arbol->derecha){
+				 
+				 if(arbol->derecha != NULL){
+	     			arbol2=arbol->derecha;
+		     			if(arbol2->valor == v){
+		     			cout<<"codigo_nodo: "<<arbol2<<" , valor: "<<arbol2->valor<<" , nodo izq: "<<arbol2->izquierda;
+						if(arbol2->izquierda == NULL){
+							cout<<" , nodo_izq: nodo vacio"<<endl;
+						}else{
+							cout<<" , valor_izq: "<<arbol2->izquierda->valor<<endl;
+						}
+						//ahora el nodo hijo derecho
+						if(arbol2->derecha == NULL){
+							cout<<"Codigo_der: "<<arbol->derecha<<" , valor_der: nodo vacio"<<endl;
+						}else{
+							cout<<"Codigo_der: "<<arbol->derecha<<" , valor_der: "<<arbol->derecha->valor;
+						}
+		     			system("pause");
+		     			}
+				}
+				 }
+	     		arbol=arbol->izquierda;
+		 }while(arbol!= NULL);
+			 	//ahora recorremos el subarbol derecho
+		 while(arbol3 != NULL){
+			if(arbol3->valor == v){
+			cout<<"codigo_nodo: "<<arbol3<<" , valor: "<<arbol3->valor<<" , Codigo izq: "<<arbol3->izquierda;
+			if(arbol3->izquierda == NULL){
+				cout<<" , Valor_izq: nodo vacio"<<endl;
+			}else{
+				cout<<" , Valor_izq: "<<arbol3->izquierda->valor<<endl;
+			}
+			//ahora verificamos el nodo hijo derecho
+			if(arbol3->derecha == NULL){
+				cout<<"Codigo_der: "<<arbol3->derecha<<" , Valor_der: nodo vacio"<<endl;
+			}else{
+				cout<<"Codigo_der: "<<arbol3->derecha<<" ,valor_der: "<<arbol3->derecha->valor<<endl;
+			}
+			system("pause");     		
+			}
+			
+     		if(arbol3->derecha != NULL){
+     			arbol2=arbol3->derecha;
+	     			if(arbol2->valor == v){
+	     			cout<<"codigo_nodo: "<<arbol2<<" , valor: "<<arbol2->valor<<" , nodo izq: "<<arbol2->izquierda;
+	     			if(arbol2->izquierda == NULL){
+	     				cout<<"valor_izq: Nodo vacio"<<endl;
+					 }else{
+					 	cout<<"valor_izq: "<<arbol2->izquierda->valor<<endl;
+					 }
+					 //ahora por la derecha
+					 if(arbol2->derecha == NULL){
+					 	cout<<"Codigo_der: "<<arbol2->derecha<<" , Valor_der: Nodo vacio"<<endl;
+					 }else{
+					 	cout<<"Codigo_der: "<<arbol2->derecha<<" , Valor_der: "<<arbol2->derecha->valor<<endl;
+					 }
+	     			system("pause");
+	     			}
+			 }
+     		
+     		arbol3=arbol3->izquierda;
+     		
+		 }	 	
+		   
+		}
+	}
+	
+
 
 
 //funcon para mostrar el arbol con recursividad
@@ -138,14 +240,13 @@ void lista::mostrararbol(nodo *arbol){
      }
      else
      {	
-     	
         cout<<"codigo_nodo: "<<arbol<<" , valor: "<<arbol->valor<<" ,nodo izq: "<<arbol->izquierda<<" ,nodo der"<<arbol->derecha<<endl;
 		mostrararbol(arbol->izquierda);
 		mostrararbol(arbol->derecha);
      }
 }
 
-//funcon para mostrar el arbol USANDO ITERACIONES
+//muestra el arbol usando while 
 void lista::mostrararbol2(nodo *arbol){
      if(arbol== NULL)
      {
@@ -186,7 +287,6 @@ void lista::mostrararbol2(nodo *arbol){
      		arbol3=arbol3->izquierda;
      		
 		 }
-		 cout<<"ya salio de todo"<<endl;
-		 system("pause");
+		
      }
 }
