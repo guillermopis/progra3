@@ -72,7 +72,7 @@ void menu(){
 				case 1:
 						system("cls");
 						cout<<"--------INGRESANDO UN NODO--------"<<endl;
-						cout<<"ingrese el valor del nodo Raiz: ";
+						cout<<"ingrese el valor del nodo: ";
 						cin>>val;
 						lista Lista;
 						Lista.insertarnodo(arbol,val,NULL);
@@ -117,6 +117,7 @@ void lista::insertarnodo(nodo *&arbol, int n, nodo *padre){
   			cout<<"1. Ingresar nodos a la izquiera "<<endl;
   			cout<<"2. Ingresar nodos a la derecha "<<endl;
   			cout<<"3. Ingresar nodos a la izquierda y derecha "<<endl;
+  			cout<<"OPCION: ";
   			int selec=0; cin>>selec;
   			switch(selec){
   				case 1: //ingresamos el valor al nodo izquierdo
